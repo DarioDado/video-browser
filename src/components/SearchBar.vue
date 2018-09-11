@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="text" @input="onInput">
+    <input type="text" @keyup.enter="onInput" placeholder="search">
   </div>
 </template>
 
@@ -10,6 +10,7 @@ export default {
   methods: {
     onInput: function(event) {
       this.$emit('termChange', event.target.value);
+      event.target.value = '';
     }
   },
 }
@@ -22,6 +23,7 @@ export default {
   }
   input {
     width: 75%;
+    padding-left: 5px;
   }
 </style>
 

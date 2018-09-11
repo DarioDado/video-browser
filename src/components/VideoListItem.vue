@@ -1,6 +1,6 @@
 <template>
   <div>
-    <li class="list-group-item media">
+    <li class="list-group-item media" @click="onVideoSelect">
       <img class="mr-3" :src="videoUrl" alt="video thumbnail">
       <div class="media-body">
         {{video.snippet.title}}
@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import fetchService from '../services/fetchService.js';
 export default {
   name: 'VideoListItem',
   props: {
@@ -19,6 +20,13 @@ export default {
     videoUrl(){
       return this.video.snippet.thumbnails.default.url;
     },
+  },
+  methods: {
+    async onVideoSelect(){
+      const {videoId} = this.video.id;
+      const video = await fetchService.fetchVideoById(videoId);
+      this.$emit('videoSelect', video);
+    }
   }
 }
 </script>
